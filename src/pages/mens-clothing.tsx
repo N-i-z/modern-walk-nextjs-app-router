@@ -1,25 +1,21 @@
 import React from "react";
-import ProductCard from "../../components/molecules/ProductCard/ProductCard.component.tsx";
-import Heading from "../../components/atoms/Typography/Heading.component.tsx";
-import useFetchProducts from "../../../hooks/useFetchProducts.ts";
-import Loading from "../../components/atoms/Loading/Loading.component.tsx";
-import { ProductListProps, ProductsProps } from "./template.types.tsx";
+import ProductCard from "../ui-core/components/molecules/ProductCard/ProductCard.component";
+import Heading from "../ui-core/components/atoms/Typography/Heading.component";
+import useFetchProducts from "../hooks/useFetchProducts";
+import Loading from "../ui-core/components/atoms/Loading/Loading.component";
+import { Product } from "../models/Product";
 
-export function WomensClothing() {
-  return (
-    <div className="content">
-      <div className="heading">
-        <Heading variant="h2">Women's Clothing</Heading>
-      </div>
-      <Products
-        url="https://fakestoreapi.com/products/category/women's clothing"
-        descriptionBackgroundColor={"#FF5E84"}
-      />
-    </div>
-  );
+interface ProductsProps {
+  url: string;
+  descriptionBackgroundColor: string;
 }
 
-export function MensClothing() {
+interface ProductListProps {
+  products: Product[];
+  descriptionBackgroundColor: string;
+}
+
+export default function MensClothing() {
   return (
     <div className="content">
       <div className="heading">
@@ -27,7 +23,7 @@ export function MensClothing() {
       </div>
       <Products
         url="https://fakestoreapi.com/products/category/men's clothing"
-        descriptionBackgroundColor={"#2BD9AF"}
+        descriptionBackgroundColor="#2BD9AF"
       />
     </div>
   );
@@ -45,7 +41,7 @@ const Products: React.FC<ProductsProps> = ({
         <Loading message="Loading..." />
       ) : (
         <ProductList
-          products={data}
+          products={data || []}
           descriptionBackgroundColor={descriptionBackgroundColor}
         />
       )}
@@ -58,7 +54,7 @@ const ProductList: React.FC<ProductListProps> = ({
   descriptionBackgroundColor,
 }) => {
   return (
-    <div className="products-container">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-10">
       {products.map((product) => (
         <ProductCard
           key={product.id}
@@ -73,5 +69,3 @@ const ProductList: React.FC<ProductListProps> = ({
     </div>
   );
 };
-
-export default ProductList;
