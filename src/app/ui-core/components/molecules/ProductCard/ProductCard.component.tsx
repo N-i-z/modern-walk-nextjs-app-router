@@ -14,6 +14,7 @@ import useCart from "../../../../../hooks/useCart";
 import Image from "next/image";
 
 const ProductCard = ({
+  id,
   title,
   image,
   price,
