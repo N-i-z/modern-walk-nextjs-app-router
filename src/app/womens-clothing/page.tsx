@@ -1,56 +1,29 @@
-"use client";
 import React from "react";
 import ProductCard from "../ui-core/components/molecules/ProductCard/ProductCard.component";
 import Heading from "../ui-core/components/atoms/Typography/Heading.component";
-import useFetchProducts from "../../hooks/useFetchProducts";
-import Loading from "../ui-core/components/atoms/Loading/Loading.component";
 import { Product } from "../../models/Product";
 
 interface ProductsProps {
-  url: string;
-  descriptionBackgroundColor: string;
-}
-
-interface ProductListProps {
   products: Product[];
   descriptionBackgroundColor: string;
 }
 
-export default function WomensClothing() {
+export default async function WomensClothing() {
+  const url = "https://fakestoreapi.com/products/category/women's clothing";
+  const res = await fetch(url);
+  const products: Product[] = await res.json();
+
   return (
     <div className="content">
       <div className="heading">
         <Heading variant="h2">Women's Clothing</Heading>
       </div>
-      <Products
-        url="https://fakestoreapi.com/products/category/women's clothing"
-        descriptionBackgroundColor="#FF5E84"
-      />
+      <ProductList products={products} descriptionBackgroundColor="#FF5E84" />
     </div>
   );
 }
 
-const Products: React.FC<ProductsProps> = ({
-  url,
-  descriptionBackgroundColor,
-}) => {
-  const { loading, data } = useFetchProducts(url);
-
-  return (
-    <div>
-      {loading ? (
-        <Loading message="Loading..." />
-      ) : (
-        <ProductList
-          products={data || []}
-          descriptionBackgroundColor={descriptionBackgroundColor}
-        />
-      )}
-    </div>
-  );
-};
-
-const ProductList: React.FC<ProductListProps> = ({
+const ProductList: React.FC<ProductsProps> = ({
   products,
   descriptionBackgroundColor,
 }) => {
