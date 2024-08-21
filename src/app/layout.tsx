@@ -5,13 +5,13 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { CartProvider } from "../context/CartContext";
 import { WatchlistProvider } from "../context/WatchListContext";
 import { Navbar } from "./ui-core/components";
-import { Roboto } from "next/font/google";
+// import { Roboto } from "next/font/google";
 import "./App.css";
 
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-});
+// const roboto = Roboto({
+//   subsets: ["latin"],
+//   weight: ["400", "700"],
+// });
 
 const queryClient = new QueryClient();
 
